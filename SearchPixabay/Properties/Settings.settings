@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SearchPixabay.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="accessorKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">19700975-5439f8c319c1140f2fdb338b5</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
