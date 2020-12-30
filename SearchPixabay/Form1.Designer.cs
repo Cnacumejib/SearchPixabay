@@ -96,7 +96,8 @@ namespace SearchPixabay
             // 
             this.pictureBox1.Location = new System.Drawing.Point(22, 168);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(324, 278);
+            this.pictureBox1.Size = new System.Drawing.Size(443, 278);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
@@ -104,7 +105,7 @@ namespace SearchPixabay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1329, 649);
+            this.ClientSize = new System.Drawing.Size(1329, 471);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.listBoxUrls);
             this.Controls.Add(this.labelKey);

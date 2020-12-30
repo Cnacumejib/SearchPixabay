@@ -11,5 +11,10 @@ namespace SearchPixabay.Entities
         public long WebId { get; set; }
         public string Url { get; set; }
         public IEnumerable<string> Tags { get; set; }
+
+        public override string ToString()
+        {
+            return $"{WebId}\t{Url}";
+        }
     }
 }

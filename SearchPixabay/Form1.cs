@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Windows.Forms;
 using SearchPixabay.Entities;
 using SearchPixabay.IWAContracts;
@@ -21,7 +21,7 @@ namespace SearchPixabay
             InitializeComponent();
         }
 
-        private void SetAccessorKey(string key="")
+        private void SetAccessorKey(string key = "")
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -55,34 +55,28 @@ namespace SearchPixabay
 
         private void btnSearchImages_Click(object sender, EventArgs e)
         {
+
             IEnumerable<WebImage> images = pixabayAccessor.GetImagePages(txtTags.Lines);
 
             listBoxUrls.Items.Clear();
             foreach (WebImage image in images)
             {
-                listBoxUrls.Items.Add($"{image.WebId}\t{image.Url}");
-                
-
-                //sb.AppendLine($"{image.WebId}\t{image.Url}");
+                listBoxUrls.Items.Add(image);
             }
-
-         //   txtUrls.Text = sb.ToString();
         }
 
         private void listBoxUrls_Click(object sender, EventArgs e)
         {
-            if(listBoxUrls.SelectedIndex>-1)
+            if (listBoxUrls.SelectedIndex > -1)
             {
                 try
                 {
-                string url = listBoxUrls.SelectedItem.ToString().Split(new char[] { '\t' })[1];
-                pictureBox1.Load(pixabayAccessor.GetImageUrl(url));
-                pictureBox1.Refresh();
-
+                    string url = listBoxUrls.SelectedItem.ToString().Split(new char[] { '\t' })[1];
+                    pictureBox1.Load(url);
+                    pictureBox1.Refresh();
                 }
                 catch (Exception)
                 {
-                   // pictureBox1.Image.
                 }
             }
         }

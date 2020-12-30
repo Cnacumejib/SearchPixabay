@@ -72,7 +72,7 @@ namespace SearchPixabay.WebAccessor
                     images.Add(new WebImage()
                     {
                         WebId = pixabayImage.id,
-                        Url = pixabayImage.pageURL,
+                        Url = pixabayImage.largeImageURL,
                         Tags = pixabayImage.tags.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries),
                     });
                 }
@@ -95,20 +95,5 @@ namespace SearchPixabay.WebAccessor
             throw new NotImplementedException();
         }
 
-        public string GetImageUrl(string pagelink)
-        {
-
-            string[] parts = pagelink.Split(new char[] { '-', '/' });
-            string url = $"https://pixabay.com/images/download/{parts[4]}-{parts[parts.Length - 2]}_1920.jpg";
-
-/*
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = client.GetAsync(url).Result;
-            byte[] responseBytes = response.Content.ReadAsByteArrayAsync().Result;
-            string responseString = Encoding.UTF8.GetString(responseBytes);
-            int pos1 =responseString.IndexOf("src=")+4;
-            string url2 = responseString.Substring(pos1, responseString.IndexOf('"',pos1)-1-pos1);*/
-            return url; //url2
-        }
     }
 }
