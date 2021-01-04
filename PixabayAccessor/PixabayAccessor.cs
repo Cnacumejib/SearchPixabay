@@ -8,7 +8,7 @@ using SearchPixabay.IWAContracts;
 using System.Net.Http;
 //using System.Net.Http.Json;
 using Newtonsoft.Json;
-
+          
 namespace SearchPixabay.WebAccessor
 {
     public class PixabayAccessor : IWebAccessorContracts
