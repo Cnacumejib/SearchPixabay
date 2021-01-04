@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.IO;
 using WordPressSharp;
 using WordPressSharp.Models;
 
@@ -22,7 +22,6 @@ namespace SearchPixabay.WordpressImageFiller
             wordpressSiteConfig.BaseUrl = "https://virtualtales.com/";
             wordpressSiteConfig.Username = "3nKMcBUjgtR49kRVo3mpQ";
             wordpressSiteConfig.Password = @"MM0m#q81cP&X2BQuYKm$e";
-
             using (var client = new WordPressClient(wordpressSiteConfig))
             {
                 PostFilter postFilter = new PostFilter() { PostType = "post" };    //записи с типом post
@@ -63,6 +62,7 @@ namespace SearchPixabay.WordpressImageFiller
                                 fileId = client.UploadFile(featureImage).Id;
                                 if (!string.IsNullOrEmpty(fileId))
                                 {
+                                    pixabayAccessor.AddUsedImage(webImage);
                                     break;
                                 }
                             }

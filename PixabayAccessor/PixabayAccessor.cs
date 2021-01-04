@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using SearchPixabay.Entities;
 using SearchPixabay.IWAContracts;
 using System.Net.Http;
 //using System.Net.Http.Json;
 using Newtonsoft.Json;
-          
+using System.Linq;
+
 namespace SearchPixabay.WebAccessor
 {
     public class PixabayAccessor : IWebAccessorContracts
     {
-       readonly string  keyAPI;
-
+        readonly string  keyAPI;
+        string[] usedImages;
         public PixabayAccessor()
         {
+           usedImages = File.ReadAllLines("usedImages.txt");
             AppSettingsReader reader = new AppSettingsReader();
          //   keyAPI = reader.GetValue("accessorKey", typeof(string)).ToString();
             keyAPI = ConfigurationSettings.AppSettings["accessorKey"];
@@ -30,6 +32,7 @@ namespace SearchPixabay.WebAccessor
         public PixabayAccessor(string key)
         {
             keyAPI = key;
+            usedImages = File.ReadAllLines("usedImages.txt");
         }
 
         public IEnumerable<WebImage> GetImagePages(IEnumerable<string> tags)
@@ -69,12 +72,16 @@ namespace SearchPixabay.WebAccessor
 
                 foreach (PixabayImage pixabayImage in pixabayResponse.hits)
                 {
-                    images.Add(new WebImage()
+                    WebImage webImage = new WebImage()
                     {
                         WebId = pixabayImage.id,
                         Url = pixabayImage.largeImageURL,
                         Tags = pixabayImage.tags.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries),
-                    });
+                    };
+                    if (!usedImages.Contains(webImage.ToString()))
+                    {
+                        images.Add(webImage);
+                    }
                 }
             }
             catch (Exception e)
@@ -95,5 +102,19 @@ namespace SearchPixabay.WebAccessor
             throw new NotImplementedException();
         }
 
+        public bool AddUsedImage(WebImage webImage)
+        {
+            int c = usedImages.Length;
+            try
+            {
+            File.AppendAllText("usedImages.txt", $"{Environment.NewLine}{webImage}");
+            usedImages = File.ReadAllLines("usedImages.txt");
+            }
+            catch (Exception)
+            {
+            }
+
+            return c == usedImages.Length - 1;
+        }
     }
 }

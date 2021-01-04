@@ -12,5 +12,7 @@ namespace SearchPixabay.IWAContracts
         IEnumerable<WebImage> GetImagePages(IEnumerable<string> tags);
         IEnumerable<WebImage> GetImagePages(PixabayRequest request);
 
+        bool AddUsedImage(WebImage webImage);
+
     }
 }
