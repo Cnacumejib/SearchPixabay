@@ -15,7 +15,7 @@ namespace SearchPixabay.Entities
         string[] colorNames = new string[] { "", "grayscale", "transparent", "red", "orange", "yellow", "green", "turquoise", "blue", "lilac", "pink", "white", "gray", "black", "brown" };
 
         public PixabayRequest(IEnumerable<string> tags, pi_lang language = pi_lang.ru, string image_id = "", pi_image_type image_type_filter = pi_image_type.all,
-            pi_orientation orientation_filter = pi_orientation.all, pi_category color_filter = 0, int min_width = 0, int min_height = 0, bool editors_choice = false, bool safesearch = false, pi_order order = pi_order.popular, int page = 1, int per_page = 20)
+            pi_orientation orientation_filter = pi_orientation.all, pi_category category_filter = 0, pi_color color_filter = 0, int min_width = 0, int min_height = 0, bool editors_choice = false, bool safesearch = false, pi_order order = pi_order.popular, int page = 1, int per_page = 20)
         {
             string pattern = string.Join("+", tags);
             if (pattern.Length > 100)
