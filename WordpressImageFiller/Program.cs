@@ -45,7 +45,7 @@ namespace SearchPixabay.WordpressImageFiller
                     {
                         if (term.Taxonomy == "post_tag")
                         {
-                            tags.Add(term.Slug);
+                            tags.Add(term.Name);//лучше Slug
                         }
                     }
 
