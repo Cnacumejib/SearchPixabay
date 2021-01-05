@@ -78,7 +78,8 @@ namespace SearchPixabay.WebAccessor
                         Url = pixabayImage.largeImageURL,
                         Tags = pixabayImage.tags.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries),
                     };
-                    if (!usedImages.Contains(webImage.ToString()))
+
+                    if (!usedImages.Contains(webImage.WebId.ToString()))
                     {
                         images.Add(webImage);
                     }
@@ -107,7 +108,7 @@ namespace SearchPixabay.WebAccessor
             int c = usedImages.Length;
             try
             {
-            File.AppendAllText("usedImages.txt", $"{Environment.NewLine}{webImage}");
+            File.AppendAllText("usedImages.txt", $"{Environment.NewLine}{webImage.WebId}");
             usedImages = File.ReadAllLines("usedImages.txt");
             }
             catch (Exception)

@@ -22,22 +22,25 @@ namespace SearchPixabay.WordpressImageFiller
             wordpressSiteConfig.BaseUrl = "https://virtualtales.com/";
             wordpressSiteConfig.Username = "3nKMcBUjgtR49kRVo3mpQ";
             wordpressSiteConfig.Password = @"MM0m#q81cP&X2BQuYKm$e";
+            int addedCounter = 0;
+            int missedCounter = 0;
             using (var client = new WordPressClient(wordpressSiteConfig))
             {
                 PostFilter postFilter = new PostFilter() { PostType = "post" };    //записи с типом post
                 Post[] posts = client.GetPosts(postFilter);
                 for (int i = 0; i < posts.Length; i++)
                 {
-                    if (!posts[i].Title.Contains("test"))
-                    {
-                        //пропускам не тестовые  --- !!!!!!!!!!!!!!!       УДАЛИТЬ     !!!!!!!!!!!!!!!
-                        continue;
-                    }
-
+                    /*     if (!posts[i].Title.Contains("test"))
+                         {
+                             //пропускам не тестовые  --- !!!!!!!!!!!!!!!       УДАЛИТЬ     !!!!!!!!!!!!!!!
+                             continue;
+                         }
+                    */
                     if (posts[i].HasFeaturedImage())
                     {
                         //пропускаем посты с картинкой
                         continue;
+                        // posts[i].FeaturedImage = null;
                     }
 
                     List<string> tags = new List<string>();
@@ -70,17 +73,23 @@ namespace SearchPixabay.WordpressImageFiller
                             {
                             }
                         }
+
+                        posts[i].FeaturedImageId = fileId;
+                        client.EditPost(posts[i]);
+                        addedCounter++;
                     }
                     else
                     {
                         // не нашли ярлыков в посте
-                        //cw
+                        Console.WriteLine($"Post \"{posts[i].Title}\" has not any post_tags");
+                        missedCounter++;
                     }
-
-                    posts[i].FeaturedImageId = fileId;
-                    client.EditPost(posts[i]);
                 }
             }
+
+            Console.WriteLine($"new feature images added: {addedCounter}{Environment.NewLine}posts without post_tags: {missedCounter}");
+            Console.WriteLine($"{Environment.NewLine}press any key.");
+            Console.ReadLine();
         }
 
         private static IEnumerable<WebImage> GetWebImages(List<string> tags)
